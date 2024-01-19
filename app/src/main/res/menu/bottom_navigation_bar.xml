@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <item
+        android:id="@+id/events"
+
+
+        android:title='@string/menu_events_title'
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/launches"
+
+
+        android:title="@string/menu_launches_title"/>
+
+    <item
+        android:id="@+id/spacecrafts"
+
+
+        android:title="@string/menu_spacecrafts_title"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/settings"
+
+
+        android:title="@string/menu_settings_title"
+        app:showAsAction="withText" />
+
+
+</menu>

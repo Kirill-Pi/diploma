@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <!-- Primary brand color. -->
+    <style name="Theme.Diploma" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <item name="colorPrimary">@color/indigo_700</item>
+    <item name="colorPrimaryVariant">@color/indigo_900</item>
+    <item name="colorOnPrimary">@color/white</item>
+    <!-- Secondary brand color. -->
+    <item name="colorSecondary">@color/analogous_500</item>
+    <item name="colorSecondaryVariant">@color/analogous_700</item>
+    <item name="colorOnSecondary">@color/black</item>
+    <!-- Status bar color. -->
+    <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
+</resources>
