@@ -5,4 +5,7 @@
     <string name="menu_spacecrafts_title">Spacecrafts</string>
     <string name="menu_settings_title">Settings</string>
 
+    <string name="cd_previous" translatable="false">Previous</string>
+    <string name="cd_next" translatable="false">Next</string>
+
 </resources>
