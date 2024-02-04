@@ -8,6 +8,7 @@ import com.example.diploma.view.Events
 import com.example.diploma.view.Launches
 import com.example.diploma.view.Settings
 import com.example.diploma.view.SpaceShips
+import com.example.diploma.viewmodel.EventsViewModel
 import com.example.diploma.viewmodel.SpaceShipsViewModel
 import com.example.pigolevmyapplication.R
 import com.example.pigolevmyapplication.databinding.ActivityMainBinding
@@ -16,7 +17,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class MainActivity : AppCompatActivity() {
 
 
-    var spaceShipViewmodel = SpaceShipsViewModel()
+    var eventsViewModel = EventsViewModel()
 
     lateinit var binding: ActivityMainBinding
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack("home")
             .commit()
 
-        spaceShipViewmodel.interactorStart()
+      // eventsViewModel.interactorStart()
     }
 
     private val onBackPressedCallback: OnBackPressedCallback =
