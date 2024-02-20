@@ -12,16 +12,15 @@ import retrofit2.Response
 class Interactor(private val repo: MainRepository, private val retrofitService: TmdbApi) {
 
 
-    fun getSpaceShipFromApi(callback: SpaceShipsViewModel.ApiCallback) {
-        retrofitService.getSpacecraftConfig().enqueue(object : Callback<TmdbSpacecraftConfig> {
+    fun getSpaceShipFromApi(callback: SpaceShipsViewModel.ApiCallback, offset: Int) {
+        retrofitService.getSpacecrafts(offset).enqueue(object : Callback<TmdbSpacecraftConfig> {
             override fun onResponse(call: Call<TmdbSpacecraftConfig>, response: Response<TmdbSpacecraftConfig>) {
                 //При успехе мы вызываем метод передаем onSuccess и в этот коллбэк список фильмов
 
-                //val list = ConverterApi.converterOfNews(response.body())
-                val list = response.body()!!
+                val list = ConverterApi.converterOfSpacecrafts(response.body())
+                //val list = response.body()!!
                 println (list)
-
-
+                repo.putSpacecraftToDb(list)
                 callback.onSuccess(list)
             }
 
@@ -31,6 +30,14 @@ class Interactor(private val repo: MainRepository, private val retrofitService: 
             }
         })
     }
+
+    fun getSpacecraftsFromDB(): Flow<MutableList<SpacecraftConfig>> = repo.getAllSpaceCraftsFromDB()
+
+    fun getFavoritesFromDB(): Flow<MutableList<SpacecraftConfig>> = repo.getFavoritesFromDB()
+
+    fun getLastSeenFromDB(): Flow<MutableList<SpacecraftConfig>> = repo.getLastSeenFromDB()
+
+    fun updateSpacecraftDB (spaceCraft: SpacecraftConfig) = repo.updateSpacecraftDB(spaceCraft)
 
 //    fun getEventsFromApi(callback: EventsViewModel.ApiCallback) {
 //        retrofitService.getEvents(30,1,2024).enqueue(object : Callback<TmdbEvents> {

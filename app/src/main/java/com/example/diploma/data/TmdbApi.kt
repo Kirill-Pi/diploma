@@ -24,4 +24,11 @@ interface TmdbApi {
         @Query("offset") offset: Int,
     ): Call<TmdbLaunch>
 
+    @GET("/2.2.0/config/spacecraft/")
+    fun getSpacecrafts(
+        //@Query("net__gte") query: String,
+        @Query("offset") offset: Int,
+    ): Call<TmdbSpacecraftConfig>
+
+
 }

@@ -1,6 +1,9 @@
 package com.example.diploma.view
 
-import android.app.ProgressDialog.show
+import com.example.pigolevmyapplication.databinding.FragmentFavoritesBinding
+
+
+
 import android.icu.util.Calendar
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,6 +20,7 @@ import com.example.diploma.data.Launch
 import com.example.diploma.data.SpacecraftConfig
 import com.example.diploma.view.rv_adapters.*
 import com.example.diploma.viewmodel.EventsViewModel
+import com.example.diploma.viewmodel.FavoritesViewModel
 import com.example.diploma.viewmodel.SpaceShipsViewModel
 import com.example.pigolevmyapplication.R
 import com.example.pigolevmyapplication.databinding.FragmentEventsBinding
@@ -28,38 +32,33 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 
-class SpaceShips : Fragment() {
+class Favorites : Fragment() {
 
     companion object {
         fun newInstance() = SpaceShips()
     }
 
-
-
     private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(SpaceShipsViewModel::class.java)
+        ViewModelProvider.NewInstanceFactory().create(FavoritesViewModel::class.java)
     }
-    private lateinit var binding: FragmentSpaceShipsBinding
+    private lateinit var binding: FragmentFavoritesBinding
 
     private lateinit var spaceCraftsAdapter: SpaceShipsListRecyclerAdapter
     private lateinit var scope: CoroutineScope
-    private var spaceCraftDataBase = mutableListOf<SpacecraftConfig>()
+    private var favoritesDataBase = mutableListOf<SpacecraftConfig>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSpaceShipsBinding.inflate(inflater, container, false)
+        binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.getSpacecrafts()
+       // viewModel.getSpacecrafts()
         recyclerViewSetup()
-
-
 
         binding.mainRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -74,10 +73,10 @@ class SpaceShips : Fragment() {
                     && firstVisibleItemPosition >= 0
                 ) {
 
-                    viewModel.nextPage()
+                   // viewModel.nextPage()
                     scope = CoroutineScope(Dispatchers.IO).also { scope ->
                         scope.launch {
-                            viewModel.spaceCraftsListLiveData.collect {
+                            viewModel.favoritesListLiveData.collect {
                                 withContext(Dispatchers.Main) {
                                     var list = it
 
@@ -106,7 +105,7 @@ class SpaceShips : Fragment() {
                     }
                 })
             println("adapter")
-            println(spaceCraftDataBase)
+            //println(spaceCraftDataBase)
 
             adapter = spaceCraftsAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -114,12 +113,12 @@ class SpaceShips : Fragment() {
             addItemDecoration(decorator)
             scope = CoroutineScope(Dispatchers.IO).also { scope ->
                 scope.launch {
-                    viewModel.spaceCraftsListLiveData.collect {
+                    viewModel.favoritesListLiveData.collect {
                         withContext(Dispatchers.Main) {
                             var list = it
 
                             spaceCraftsAdapter.addItems(list)
-                            spaceCraftDataBase = it
+                            favoritesDataBase = it
                         }
                     }
                 }

@@ -92,6 +92,7 @@ class Events : Fragment() {
                     //Вызываем загрузку следующей страницы при достижении конца списка
                     && firstVisibleItemPosition >= 0
                 ) {
+
                    viewModel.nextPage(dateTxt)
                     scope = CoroutineScope(Dispatchers.IO).also { scope ->
                         scope.launch {
