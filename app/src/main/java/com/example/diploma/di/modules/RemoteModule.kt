@@ -43,4 +43,6 @@ class RemoteModule {
     @Provides
     @Singleton
     fun provideTmdbApi(retrofit: Retrofit): TmdbApi = retrofit.create(TmdbApi::class.java)
+
+
 }

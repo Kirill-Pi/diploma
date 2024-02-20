@@ -24,7 +24,14 @@
         app:showAsAction="withText" />
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/favorites"
+
+
+        android:title="@string/menu_favorites_title"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/recently_viewed"
 
 
         android:title="@string/menu_settings_title"

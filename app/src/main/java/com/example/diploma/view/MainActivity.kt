@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.example.diploma.data.SpacecraftConfig
 import com.example.diploma.view.Events
 import com.example.diploma.view.Launches
 import com.example.diploma.view.Settings
 import com.example.diploma.view.SpaceShips
+import com.example.diploma.viewmodel.EventsViewModel
 import com.example.diploma.viewmodel.SpaceShipsViewModel
 import com.example.pigolevmyapplication.R
 import com.example.pigolevmyapplication.databinding.ActivityMainBinding
@@ -16,7 +18,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class MainActivity : AppCompatActivity() {
 
 
-    var spaceShipViewmodel = SpaceShipsViewModel()
+    var eventsViewModel = EventsViewModel()
 
     lateinit var binding: ActivityMainBinding
 
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack("home")
             .commit()
 
-        spaceShipViewmodel.interactorStart()
+      // eventsViewModel.interactorStart()
     }
 
     private val onBackPressedCallback: OnBackPressedCallback =
@@ -57,29 +59,35 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.events -> {
-                    val tag = "home"
+                    val tag = "events"
                     val fragment = checkFragmentExistence(tag)
 
                     changeFragment( fragment?: Events(), tag)
                     true
                 }
                 R.id.launches -> {
-                    val tag = "favorites"
+                    val tag = "launches"
                     val fragment = checkFragmentExistence(tag)
                     changeFragment( fragment?: Launches(), tag)
 
                     true
                 }
                 R.id.spacecrafts -> {
-                    val tag = "watch_later"
+                    val tag = "spacecrafts"
                     val fragment = checkFragmentExistence(tag)
                     changeFragment( fragment?: SpaceShips(), tag)
                     true
                 }
-                R.id.settings -> {
-                    val tag = "selections"
+                R.id.favorites -> {
+                    val tag = "favorites"
                     val fragment = checkFragmentExistence(tag)
-                    changeFragment( fragment?: Settings(), tag)
+                    changeFragment( fragment?: Favorites(), tag)
+                    true
+                }
+                R.id.recently_viewed -> {
+                    val tag = "recently_viewed"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: LastSeen(), tag)
                     true
                 }
 
@@ -104,6 +112,18 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragment_placeholder, fragment, tag)
             // .addToBackStack(null)
+            .commit()
+    }
+
+    fun launchDetailsSCFragment(spaceCraft: SpacecraftConfig) {
+        val bundle = Bundle()
+        bundle.putParcelable("spaceCraft", spaceCraft)
+        val fragment = DetailsSC()
+        fragment.arguments = bundle
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment)
+            .addToBackStack("spacecraft")
             .commit()
     }
 }
