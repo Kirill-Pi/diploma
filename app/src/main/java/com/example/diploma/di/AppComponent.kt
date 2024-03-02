@@ -3,10 +3,7 @@ package com.example.diploma.di
 import com.example.diploma.di.modules.DatabaseModule
 import com.example.diploma.di.modules.DomainModule
 import com.example.diploma.di.modules.RemoteModule
-import com.example.diploma.viewmodel.EventsViewModel
-import com.example.diploma.viewmodel.LaunchesViewModel
-import com.example.diploma.viewmodel.SettingsViewModel
-import com.example.diploma.viewmodel.SpaceShipsViewModel
+import com.example.diploma.viewmodel.*
 import dagger.Component
 import javax.inject.Singleton
 
@@ -28,4 +25,16 @@ interface AppComponent {
     fun inject(spaceShipsViewModel: SpaceShipsViewModel)
 
     fun inject(settingsViewModel: SettingsViewModel)
+
+    fun inject(favoritesViewModel: FavoritesViewModel)
+
+    fun inject(detailsSCFragmentViewModel: DetailsSCFragmentViewModel)
+
+    fun inject(lastSeenViewModel: LastSeenViewModel)
+
+    fun inject(detailLaunchFragmentViewModel: DetailLaunchFragmentViewModel)
+
+    fun inject(detailEventFragmentViewModel: DetailEventFragmentViewModel)
+
+
 }

@@ -5,6 +5,7 @@
 
     <item
         android:id="@+id/events"
+        android:icon="@drawable/earth"
 
 
         android:title='@string/menu_events_title'
@@ -12,20 +13,27 @@
 
     <item
         android:id="@+id/launches"
-
+        android:icon="@drawable/launch_2"
 
         android:title="@string/menu_launches_title"/>
 
     <item
         android:id="@+id/spacecrafts"
 
-
+        android:icon="@drawable/sc"
         android:title="@string/menu_spacecrafts_title"
         app:showAsAction="withText" />
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/favorites"
+        android:icon="@drawable/favorites"
 
+        android:title="@string/menu_favorites_title"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/telescope"
 
         android:title="@string/menu_settings_title"
         app:showAsAction="withText" />

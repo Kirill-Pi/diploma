@@ -12,12 +12,12 @@ data class TmdbSpacecraftConfig(
         val crew_capacity: Int,
         val human_rated: Boolean,
         val id: Int,
-        val image_url: String,
+        val image_url: String = "",
         val in_use: Boolean,
         val info_link: String,
         val maiden_flight: String,
         val name: String,
-        val nation_url: String,
+        val nation_url: String = "",
         val url: String,
         val wiki_link: String
     ) {
@@ -29,7 +29,7 @@ data class TmdbSpacecraftConfig(
             val featured: Boolean,
             val founding_year: String,
             val id: Int,
-            val image_url: String,
+            val image_url: String ?,
             val launchers: String,
             val logo_url: String,
             val name: String,
