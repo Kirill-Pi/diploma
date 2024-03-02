@@ -31,4 +31,10 @@ interface AppComponent {
     fun inject(detailsSCFragmentViewModel: DetailsSCFragmentViewModel)
 
     fun inject(lastSeenViewModel: LastSeenViewModel)
+
+    fun inject(detailLaunchFragmentViewModel: DetailLaunchFragmentViewModel)
+
+    fun inject(detailEventFragmentViewModel: DetailEventFragmentViewModel)
+
+
 }

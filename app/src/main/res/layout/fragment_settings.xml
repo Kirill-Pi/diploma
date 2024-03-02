@@ -1,13 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Settings">
+    android:background="@color/indigo_900"  >
+
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Spacecraft features"
+        android:textColor="@color/light_grey"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <RadioGroup
+        android:id="@+id/radioGroup_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="10dp">
+
+        <!--adding a radio button -->
+        <RadioButton
+            android:id="@+id/human_rated_1"
+            android:layout_width="328dp"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="Human rated"
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_grey"
+            android:textSize="14sp" />
+
+        <!--adding a radio button -->
+        <RadioButton
+            android:id="@+id/human_rated_2"
+            android:layout_width="328dp"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="Not human rated"
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_grey"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/human_rated_3"
+            android:layout_width="328dp"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="All"
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_grey"
+            android:textSize="14sp" />
+
+
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroup_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="300dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="10dp">
+
+        <!--adding a radio button -->
+        <RadioButton
+            android:id="@+id/in_use_1"
+            android:layout_width="328dp"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="In Use"
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_grey"
+            android:textSize="14sp" />
+
+        <!--adding a radio button -->
+        <RadioButton
+            android:id="@+id/in_use_2"
+            android:layout_width="328dp"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="Not In Use"
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_grey"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/in_use_3"
+            android:layout_width="328dp"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="All"
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_grey"
+            android:textSize="14sp" />
+
+
+    </RadioGroup>
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

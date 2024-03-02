@@ -1,9 +1,6 @@
 package com.example.diploma.utils
 
-import com.example.diploma.data.Launch
-import com.example.diploma.data.SpacecraftConfig
-import com.example.diploma.data.TmdbLaunch
-import com.example.diploma.data.TmdbSpacecraftConfig
+import com.example.diploma.data.*
 
 object ConverterApi {
 
@@ -43,6 +40,23 @@ object ConverterApi {
                     name = it.name,
                     countryCode = it.agency.country_code,
                   //  nationUrl = it.nation_url,
+                )
+            )
+        }
+        return result
+    }
+
+    fun converterOfEvents(list: TmdbEvents?): MutableList<Events> {
+        val result = mutableListOf<Events>()
+        list?.results?.forEach {
+            result.add(
+                Events(
+                   name = it.name,
+                   date = it.date,
+                    description = it.description,
+           image = it.feature_image,
+           location = it.location
+
                 )
             )
         }

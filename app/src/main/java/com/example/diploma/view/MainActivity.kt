@@ -4,13 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.example.diploma.data.Events
+import com.example.diploma.data.Launch
 import com.example.diploma.data.SpacecraftConfig
-import com.example.diploma.view.Events
-import com.example.diploma.view.Launches
-import com.example.diploma.view.Settings
-import com.example.diploma.view.SpaceShips
 import com.example.diploma.viewmodel.EventsViewModel
-import com.example.diploma.viewmodel.SpaceShipsViewModel
 import com.example.pigolevmyapplication.R
 import com.example.pigolevmyapplication.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -32,11 +29,11 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.fragment_placeholder, Events())
+            .add(R.id.fragment_placeholder, EventsFragment())
             .addToBackStack("home")
             .commit()
 
-      // eventsViewModel.interactorStart()
+
     }
 
     private val onBackPressedCallback: OnBackPressedCallback =
@@ -62,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     val tag = "events"
                     val fragment = checkFragmentExistence(tag)
 
-                    changeFragment( fragment?: Events(), tag)
+                    changeFragment( fragment?: EventsFragment(), tag)
                     true
                 }
                 R.id.launches -> {
@@ -84,10 +81,10 @@ class MainActivity : AppCompatActivity() {
                     changeFragment( fragment?: Favorites(), tag)
                     true
                 }
-                R.id.recently_viewed -> {
-                    val tag = "recently_viewed"
+                R.id.settings -> {
+                    val tag = "settings"
                     val fragment = checkFragmentExistence(tag)
-                    changeFragment( fragment?: LastSeen(), tag)
+                    changeFragment( fragment?: Settings(), tag)
                     true
                 }
 
@@ -126,4 +123,32 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack("spacecraft")
             .commit()
     }
+
+
+
+    fun launchDetailsLaunchFragment (launch: Launch) {
+        val bundle = Bundle()
+        bundle.putParcelable("launch", launch)
+        val fragment = DetailsLaunch()
+        fragment.arguments = bundle
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment)
+            .addToBackStack("launch")
+            .commit()
+    }
+
+    fun launchDetailsEventFragment (event: Events) {
+        val bundle = Bundle()
+        bundle.putParcelable("event", event)
+        val fragment = DetailEvents()
+        fragment.arguments = bundle
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment)
+            .addToBackStack("event")
+            .commit()
+    }
+
+
 }

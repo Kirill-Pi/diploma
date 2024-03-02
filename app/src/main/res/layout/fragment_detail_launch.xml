@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             app:borderWidth="0dp"
-            android:translationX="72dp"
+            android:translationX="16dp"
             android:backgroundTint="?attr/colorPrimaryVariant"
             app:layout_anchor="@id/app_bar"
             app:layout_anchorGravity="left|bottom"
@@ -79,7 +79,7 @@
             android:id="@+id/details_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="18dp"
             android:backgroundTint="?attr/colorButtonNormal"
             app:layout_anchor="@id/app_bar"
             app:layout_anchorGravity="bottom|right"
@@ -92,21 +92,72 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/country"
-                    android:layout_width="120dp"
+                    android:id="@+id/date"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="40dp"
-                    android:text="Country"
+                    android:text="Date"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/date_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="date_text"
+                    android:textColor="@color/light_white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/date"
+                    app:layout_constraintTop_toTopOf="@+id/date" />
+
+                <TextView
+                    android:id="@+id/rocket"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Rocket"
+                    android:textColor="@color/light_white"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/date"
+                    app:layout_constraintTop_toBottomOf="@+id/date" />
+
+                <TextView
+                    android:id="@+id/rocket_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="rocket_text"
+                    android:textColor="@color/light_white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/rocket"
+                    app:layout_constraintTop_toTopOf="@+id/rocket" />
+
+                <TextView
+                    android:id="@+id/country"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Country"
+                    android:textColor="@color/light_white"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rocket" />
 
                 <TextView
                     android:id="@+id/country_text"
@@ -122,112 +173,96 @@
                     app:layout_constraintTop_toTopOf="@+id/country" />
 
                 <TextView
-                    android:id="@+id/crew"
-                    android:layout_width="120dp"
+                    android:id="@+id/pad"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:text="Crew"
+                    android:text="Pad"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/country"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/country" />
 
                 <TextView
-                    android:id="@+id/crew_text"
+                    android:id="@+id/pad_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="crew_text"
+                    android:text="pad_text"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/crew"
-                    app:layout_constraintTop_toTopOf="@+id/crew" />
+                    app:layout_constraintStart_toEndOf="@+id/pad"
+                    app:layout_constraintTop_toTopOf="@+id/pad" />
 
                 <TextView
-                    android:id="@+id/maiden_flight"
-                    android:layout_width="120dp"
+                    android:id="@+id/status"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:text="Maiden flight"
+                    android:text="Status"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/crew" />
+                    app:layout_constraintTop_toBottomOf="@+id/pad" />
 
                 <TextView
-                    android:id="@+id/maiden_flight_text"
+                    android:id="@+id/status_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="maiden_flight_text"
+                    android:text="status_text"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/maiden_flight"
-                    app:layout_constraintTop_toTopOf="@+id/maiden_flight" />
+                    app:layout_constraintStart_toEndOf="@+id/status"
+                    app:layout_constraintTop_toTopOf="@+id/status" />
+
                 <TextView
-                    android:id="@+id/in_use"
-                    android:layout_width="120dp"
+                    android:id="@+id/mission"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:text="In use"
+                    android:text="Mission"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/maiden_flight" />
+                    app:layout_constraintTop_toBottomOf="@+id/status" />
 
                 <TextView
-                    android:id="@+id/in_use_text"
+                    android:id="@+id/mission_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="in_use_text"
+                    android:text="mission_text"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/in_use"
-                    app:layout_constraintTop_toTopOf="@+id/in_use" />
-
+                    app:layout_constraintStart_toEndOf="@+id/mission"
+                    app:layout_constraintTop_toTopOf="@+id/mission" />
 
                 <TextView
-                    android:id="@+id/capability"
+                    android:id="@+id/description"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
-                    android:text="capability"
+                    android:text="description"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_use_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/mission_text" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/details_fab_favorites"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:borderWidth="0dp"
-            android:backgroundTint="?attr/colorPrimaryVariant"
-            app:layout_anchor="@id/app_bar"
-            app:layout_anchorGravity="left|bottom"
-            app:srcCompat="@drawable/baseline_favorite_border_24"
-            app:tint="@android:color/white" />
-
-
-
-
-
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

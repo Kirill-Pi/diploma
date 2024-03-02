@@ -1,18 +1,16 @@
 package com.example.diploma.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.diploma.App
-import com.example.diploma.data.Launch
-import com.example.diploma.data.TmdbEvents
-import com.example.diploma.data.TmdbLaunch
-import com.example.diploma.data.TmdbSpacecraftConfig
+import com.example.diploma.data.*
 import com.example.diploma.domain.Interactor
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class EventsViewModel : ViewModel() {
 
-    val launchListLiveData: Flow<MutableList<Launch>>
+    val eventsListLiveData: Flow<MutableList<Events>>
     private var offset = 0
     private var offsetValue = 10
 
@@ -23,42 +21,37 @@ class EventsViewModel : ViewModel() {
 
     init {
         App.instance.dagger.inject(this)
+        eventsListLiveData = interactor.getEventsFromDB()
 
-        launchListLiveData = interactor.getLaunchesFromDB()
+
     }
 
     fun offsetSetup(){
         offset = 0
     }
 
+    fun getEvents(){
+        interactor.getEventsFromApi( object : ApiCallback {
+            override fun onSuccess(events: MutableList<Events>) {
+
+            }
+            override fun onFailure() {
+            }
+        }, offset)
+    }
 
 
-    fun getLaunches (date: String ) = interactor.getLaunchesFromApi(object : ApiCallback {
-        override fun onSuccess(events: MutableList<Launch>) {
 
-        }
 
-        override fun onFailure() {
-        }
-    }, date, offset)
-
-    fun nextPage (date: String) {
-
+    fun nextPage () {
         offset += offsetValue
-        getLaunches(date)
-
+        getEvents()
     }
-
-    fun cleanDb(){
-        interactor.cleanDb()
-    }
-
-
 
 
 
     interface ApiCallback {
-        fun onSuccess(events: MutableList<Launch>)
+        fun onSuccess(events: MutableList<Events>)
         fun onFailure()
     }
 }

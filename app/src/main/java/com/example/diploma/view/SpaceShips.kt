@@ -42,8 +42,10 @@ class SpaceShips : Fragment() {
     private lateinit var binding: FragmentSpaceShipsBinding
 
     private lateinit var spaceCraftsAdapter: SpaceShipsListRecyclerAdapter
+    private lateinit var recentlyViewedAdapter: LastSeenListRecyclerAdapter
     private lateinit var scope: CoroutineScope
     private var spaceCraftDataBase = mutableListOf<SpacecraftConfig>()
+    private var lastSeenDataBase = mutableListOf<SpacecraftConfig>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,8 +58,38 @@ class SpaceShips : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getSpacecrafts()
+       // viewModel.getSpacecrafts()
         recyclerViewSetup()
+
+        binding.bottomView.bottomRecycler.apply {
+            recentlyViewedAdapter =
+                LastSeenListRecyclerAdapter(object :
+                    LastSeenListRecyclerAdapter.OnItemClickListener {
+
+                    override fun click(spaceCraft: SpacecraftConfig) {
+                        (requireActivity() as MainActivity).launchDetailsSCFragment(spaceCraft)
+                    }
+                })
+            // println("adapter")
+            //println(spaceCraftDataBase)
+
+            adapter = recentlyViewedAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            val decorator = TopSpacingItemDecoration(4)
+            addItemDecoration(decorator)
+            scope = CoroutineScope(Dispatchers.IO).also { scope ->
+                scope.launch {
+                    viewModel.lastSeenListLiveData.collect {
+                        withContext(Dispatchers.Main) {
+                            var list = it
+
+                            recentlyViewedAdapter.addItems(list)
+                            lastSeenDataBase = it
+                        }
+                    }
+                }
+            }
+        }
 
 
 
@@ -83,7 +115,7 @@ class SpaceShips : Fragment() {
 
                                     spaceCraftsAdapter.addPage(list)
 
-                                    //launchDataBase = it
+                                    spaceCraftDataBase = it
                                 }
                             }
                         }

@@ -1,10 +1,13 @@
 package com.example.diploma.data
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "cached_launches", indices = [Index(value = ["name"], unique = true)])
 data class Launch(
     @PrimaryKey (autoGenerate = false) val name: String = "",
@@ -20,7 +23,7 @@ data class Launch(
     @ColumnInfo val status: Boolean = true,
     @ColumnInfo val rocket: String ="",
     @ColumnInfo val image: String?
-    )
+    ): Parcelable
 
 
 

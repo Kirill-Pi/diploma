@@ -12,27 +12,31 @@ import javax.inject.Inject
 class SpaceShipsViewModel : ViewModel() {
 
     val spaceCraftsListLiveData: Flow<MutableList<SpacecraftConfig>>
+    val lastSeenListLiveData: Flow<MutableList<SpacecraftConfig>>
     private var offset = 0
     private var offsetValue = 10
+    private var isFirst = true
 
     @Inject
     lateinit var interactor: Interactor
 
     init {
         App.instance.dagger.inject(this)
+        getSpacecrafts ()
         spaceCraftsListLiveData = interactor.getSpacecraftsFromDB()
-        //interactorStart()
+        lastSeenListLiveData = interactor.getLastSeenFromDB()
+        isFirst = false
     }
 
     fun getSpacecrafts () = interactor.getSpaceShipFromApi(object :
-        SpaceShipsViewModel.ApiCallback {
-        override fun onSuccess(events: MutableList<SpacecraftConfig>) {
+        ApiCallback {
+        override fun onSuccess(ships: MutableList<SpacecraftConfig>) {
 
         }
 
         override fun onFailure() {
         }
-    }, offset)
+    }, offset, isFirst)
 
     fun nextPage () {
 

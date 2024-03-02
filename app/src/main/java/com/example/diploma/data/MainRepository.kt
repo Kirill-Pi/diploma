@@ -1,5 +1,6 @@
 package com.example.diploma.data
 
+import com.example.diploma.data.dao.EventDao
 import com.example.diploma.data.dao.LaunchDao
 import com.example.diploma.data.dao.SpaceCraftsDao
 import kotlinx.coroutines.CoroutineScope
@@ -7,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlin.coroutines.EmptyCoroutineContext
 
-class MainRepository (private val launchDao: LaunchDao, private val spaceCraftDao: SpaceCraftsDao){
+class MainRepository (private val launchDao: LaunchDao, private val spaceCraftDao: SpaceCraftsDao, private val eventDao: EventDao){
 
     fun putToDb(news: List<Launch>) {
 
@@ -58,6 +59,24 @@ class MainRepository (private val launchDao: LaunchDao, private val spaceCraftDa
             spaceCraftDao.updateSpaceCraft(spaceCraft)
         }
 
+    }
+
+    fun putEventToDb(events: List<Events>) {
+
+        CoroutineScope(EmptyCoroutineContext).launch {
+            //delay(200)
+            eventDao.insertAll(events)
+        }
+    }
+
+    fun cleanEventsDb() {
+        CoroutineScope(EmptyCoroutineContext).launch {
+            eventDao.deleteAll()
+        }
+    }
+
+    fun getAllEventsFromDB(): Flow<MutableList<Events>> {
+        return eventDao.getCachedEvents()
     }
 
 

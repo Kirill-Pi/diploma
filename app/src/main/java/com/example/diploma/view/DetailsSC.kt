@@ -75,13 +75,19 @@ class DetailsSC  : Fragment() {
             binding.detailsToolbar.title = spaceCraft.name
             Glide.with(this)
                 .load( spaceCraft.imageUrl)
+                .placeholder(R.drawable.launch_placeholder)
+                .error(R.drawable.launch_placeholder)
                 .centerCrop()
                 .into(binding.detailsPoster)
             binding.annotation = spaceCraft.capability
-            binding.crewText.text = spaceCraft.crewCapacity.toString()
+            if (spaceCraft.crewCapacity > 0) {
+                binding.crewText.text = spaceCraft.crewCapacity.toString()
+            } else  binding.crewText.text = "unmanned"
             binding.countryText.text = spaceCraft.countryCode
             binding.maidenFlightText.text = spaceCraft.maidenFlight
             binding.capability.text = spaceCraft.capability
+            if (spaceCraft.inUse) binding.inUseText.text = "Yes"
+            else binding.inUseText.text = "No"
         }
 
 
