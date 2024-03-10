@@ -1,8 +1,48 @@
 <resources>
     <string name="app_name">diploma</string>
     <string name="menu_events_title">Events</string>
-    <string name="menu_launches_title">Launches</string>
+    <string name="menu_launches_title">Launch</string>
     <string name="menu_spacecrafts_title">Spacecrafts</string>
     <string name="menu_settings_title">Settings</string>
+    <string name="menu_favorites_title">Favorites</string>
+
+    <string name="cd_previous" translatable="false">Previous</string>
+    <string name="cd_next" translatable="false">Next</string>
+
+    <string name="downloaded_to_gallery">Saved to gallery</string>
+    <string name="open">To gallery</string>
+
+
+    <string name="launches_hint">search Launch</string>
+    <string name="event_hint">search Event</string>
+    <string name="spacecraft_hint">search Spacecraft</string>
+    <string name="favorites_hint">search Favorite</string>
+
+    <string name="recently_viewed">Recently viewed</string>
+    <string name="clear">Clear history</string>
+
+    <string name="Detail_launch_date">Date</string>
+    <string name="Detail_launch_rocket">Rocket</string>
+    <string name="Detail_launch_country">Country</string>
+    <string name="Detail_launch_pad">Pad</string>
+    <string name="Detail_launch_status">Status</string>
+    <string name="Detail_launch_mission">Mission</string>
+
+    <string name="Detail_event_date">Date</string>
+    <string name="Detail_event_location">Location</string>
+
+    <string name="Detail_sc_country">Country</string>
+    <string name="Detail_sc_crew">Crew</string>
+    <string name="Detail_sc_mf">Maiden flight</string>
+    <string name="Detail_sc_in_use">In use</string>
+
+    <string name="settings_title">Spacecraft features</string>
+
+    <string name="Radio_button_1">Human rated</string>
+    <string name="Radio_button_2">Not human rated</string>
+    <string name="Radio_button_3">All</string>
+    <string name="Radio_button_4">In Use</string>
+    <string name="Radio_button_5">Not In Use</string>
+    <string name="Radio_button_6">All</string>
 
 </resources>
