@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.diploma.data.Events
+import com.example.diploma.data.Favorites
 import com.example.diploma.data.Launch
 import com.example.diploma.data.SpacecraftConfig
 import com.example.diploma.viewmodel.EventsViewModel
@@ -14,15 +15,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
 
-
-    var eventsViewModel = EventsViewModel()
-
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
 
         setContentView(binding.root)
         menuInit()
@@ -32,14 +29,11 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.fragment_placeholder, EventsFragment())
             .addToBackStack("home")
             .commit()
-
-
     }
 
     private val onBackPressedCallback: OnBackPressedCallback =
         object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-
                 if (supportFragmentManager.backStackEntryCount == 1) {
                     showAppClosingDialog()
                 }
@@ -49,16 +43,12 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun menuInit() {
-
         var bottomNavigation = binding.bottomNavigation
-
-
         bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.events -> {
                     val tag = "events"
                     val fragment = checkFragmentExistence(tag)
-
                     changeFragment( fragment?: EventsFragment(), tag)
                     true
                 }
@@ -66,7 +56,6 @@ class MainActivity : AppCompatActivity() {
                     val tag = "launches"
                     val fragment = checkFragmentExistence(tag)
                     changeFragment( fragment?: Launches(), tag)
-
                     true
                 }
                 R.id.spacecrafts -> {
@@ -78,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.favorites -> {
                     val tag = "favorites"
                     val fragment = checkFragmentExistence(tag)
-                    changeFragment( fragment?: Favorites(), tag)
+                    changeFragment( fragment?: FavoritesFragment(), tag)
                     true
                 }
                 R.id.settings -> {
@@ -87,7 +76,6 @@ class MainActivity : AppCompatActivity() {
                     changeFragment( fragment?: Settings(), tag)
                     true
                 }
-
                 else -> false
             }
         }
@@ -124,8 +112,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-
-
     fun launchDetailsLaunchFragment (launch: Launch) {
         val bundle = Bundle()
         bundle.putParcelable("launch", launch)
@@ -150,5 +136,16 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-
+    fun launchDetailsFavoritesFragment (spaceCraft: Favorites) {
+        println(spaceCraft)
+        val bundle = Bundle()
+        bundle.putParcelable("favorites", spaceCraft)
+        val fragment = DetailFavorites()
+        fragment.arguments = bundle
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment)
+            .addToBackStack("favorites")
+            .commit()
+    }
 }

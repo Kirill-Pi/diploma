@@ -20,9 +20,6 @@ class CalendarAdapter(private val listener: (calendarDateModel: CalendarDateMode
             val calendarDay = itemView.findViewById<TextView>(R.id.tv_calendar_day)
             val calendarDate = itemView.findViewById<TextView>(R.id.tv_calendar_date)
             val cardView = itemView.findViewById<MaterialCardView>(R.id.card_calendar)
-
-            //println(calendarDateModel.calendarDate)
-
             if (calendarDateModel.isSelected) {
                 calendarDay.setTextColor(
                     ContextCompat.getColor(
@@ -78,8 +75,6 @@ class CalendarAdapter(private val listener: (calendarDateModel: CalendarDateMode
                     )
                 }
             }
-
-
             calendarDay.text = calendarDateModel.calendarDay
             calendarDate.text = calendarDateModel.calendarDate
             cardView.setOnClickListener {

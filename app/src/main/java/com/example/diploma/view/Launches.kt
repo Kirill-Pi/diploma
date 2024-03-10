@@ -1,12 +1,13 @@
 package com.example.diploma.view
 
 import android.icu.util.Calendar
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -17,15 +18,10 @@ import com.example.diploma.view.rv_adapters.CalendarAdapter
 import com.example.diploma.view.rv_adapters.HorizontalItemDecoration
 import com.example.diploma.view.rv_adapters.LaunchListRecyclerAdapter
 import com.example.diploma.view.rv_adapters.TopSpacingItemDecoration
-import com.example.diploma.viewmodel.EventsViewModel
 import com.example.diploma.viewmodel.LaunchesViewModel
 import com.example.pigolevmyapplication.R
-import com.example.pigolevmyapplication.databinding.FragmentEventsBinding
 import com.example.pigolevmyapplication.databinding.FragmentLaunchesBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,7 +32,6 @@ class Launches : Fragment() {
     }
 
     private lateinit var binding: FragmentLaunchesBinding
-
     private val sdf = SimpleDateFormat(" LLLL yyyy", Locale.getDefault())
     private val cal = Calendar.getInstance(Locale.getDefault())
     private val currentDate = Calendar.getInstance(Locale.getDefault())
@@ -46,7 +41,6 @@ class Launches : Fragment() {
     private var now = Date()
     private var dateTxt = SimpleDateFormat("yyyy-MM-dd").format(now).toString()
 
-
     private val viewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(LaunchesViewModel::class.java)
     }
@@ -54,8 +48,6 @@ class Launches : Fragment() {
     private lateinit var launchesAdapter: LaunchListRecyclerAdapter
     private lateinit var scope: CoroutineScope
     private var launchDataBase = mutableListOf<Launch>()
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,18 +62,16 @@ class Launches : Fragment() {
         setUpAdapter()
         setUpClickListener()
         setUpCalendar()
-
         var scrollDate = currentDate.get(Calendar.DAY_OF_MONTH)
         if (scrollDate == 1) scrollDate++
         binding.recyclerView.scrollToPosition(scrollDate - 2)
-
         recyclerViewSetup()
+        searchViewInit(binding)
+        recyclerScrollListenerSetup()
+    }
 
+    private fun recyclerScrollListenerSetup() {
         binding.homeRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            var canScrollUp = false
-            var canScrollDown = false
-            var isLoaded = false
-
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val tempLayoutManager = binding.homeRecycler.layoutManager as LinearLayoutManager
@@ -92,16 +82,13 @@ class Launches : Fragment() {
                     //Вызываем загрузку следующей страницы при достижении конца списка
                     && firstVisibleItemPosition >= 0
                 ) {
-
-                   viewModel.nextPage(dateTxt)
+                    viewModel.nextPage(dateTxt)
                     scope = CoroutineScope(Dispatchers.IO).also { scope ->
                         scope.launch {
                             viewModel.launchListLiveData.collect {
                                 withContext(Dispatchers.Main) {
                                     var list = it
-
                                     launchesAdapter.addPage(list)
-
                                     //launchDataBase = it
                                 }
                             }
@@ -118,14 +105,12 @@ class Launches : Fragment() {
         binding.homeRecycler.apply {
             launchesAdapter =
                 LaunchListRecyclerAdapter(object : LaunchListRecyclerAdapter.OnItemClickListener {
-
                     override fun click(launch: Launch) {
                         (requireActivity() as MainActivity).launchDetailsLaunchFragment(launch)
                     }
                 })
             println("adapter")
             println(launchDataBase)
-
             adapter = launchesAdapter
             layoutManager = LinearLayoutManager(requireContext())
             val decorator = TopSpacingItemDecoration(8)
@@ -178,21 +163,16 @@ class Launches : Fragment() {
                 if (calendarModel.isSelected) {
                     dateTxt = SimpleDateFormat("yyyy-MM-dd").format(calendarModel.data).toString()
                     println("date $dateTxt ")
-                    viewModel.cleanDb()
+                    viewModel.searchQuerySetUp("")
                     viewModel.offsetSetup()
                     viewModel.getLaunches(dateTxt)
-
                     binding.recyclerView.scrollToPosition(index)
-
             }
         }
         adapter.setData(calendarList2)
     }
     binding.recyclerView.adapter = adapter
 }
-
-
-
 
     /**
      * Function to setup calendar for every month
@@ -205,8 +185,6 @@ class Launches : Fragment() {
         dates.clear()
         monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
         while (dates.size < maxDaysInMonth) {
-            //println(monthCalendar.time)
-            //println(currentDate.time)
             dates.add(monthCalendar.time)
             if (monthCalendar.time == currentDate.time) {
                 calendarList.add(CalendarDateModel(monthCalendar.time, false, true))
@@ -221,6 +199,31 @@ class Launches : Fragment() {
         adapter.setData(calendarList)
     }
 
-
-
+    private fun searchViewInit(binding: FragmentLaunchesBinding) {
+        binding.searchView.setOnClickListener {
+            binding.searchView.isIconified = false
+        }
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText?.isEmpty() == true) {
+                    viewModel.searchQuerySetUp("")
+                    viewModel.getLaunches(dateTxt)
+                    return true
+                }
+                val query = newText?.lowercase(Locale.getDefault())!!
+                viewModel.searchQuerySetUp(query)
+                viewModel.offsetSetup()
+                viewModel.getLaunches(dateTxt)
+                return true
+            }
+        })
+    }
+    override fun onStop() {
+        viewModel.searchQuerySetUp("")
+        super.onStop()
+        scope.cancel()
+    }
 }

@@ -28,16 +28,12 @@ class Settings : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         viewModel.inUsePropertyLifeData.observe(viewLifecycleOwner, Observer<Int> {
             when(it) {
                 1 -> binding.radioGroup2.check(R.id.in_use_1)
                 2 -> binding.radioGroup2.check(R.id.in_use_2)
                 3 -> binding.radioGroup2.check(R.id.in_use_3)
-
             }
-            println(it)
-
         })
         //Слушатель для отправки нового состояния в настройки
         binding.radioGroup2.setOnCheckedChangeListener { group, checkedId ->
@@ -53,11 +49,7 @@ class Settings : Fragment() {
                 1 -> binding.radioGroup1.check(R.id.human_rated_1)
                 2 -> binding.radioGroup1.check(R.id.human_rated_2)
                 3 -> binding.radioGroup1.check(R.id.human_rated_3)
-
-
             }
-            println(it)
-
         })
         //Слушатель для отправки нового состояния в настройки
         binding.radioGroup1.setOnCheckedChangeListener { group, checkedId ->
@@ -68,10 +60,5 @@ class Settings : Fragment() {
 
             }
         }
-
     }
-
-
-
-
 }

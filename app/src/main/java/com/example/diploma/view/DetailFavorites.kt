@@ -17,19 +17,18 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.diploma.data.Events
-import com.example.diploma.notifications.NotificationHelper
-import com.example.diploma.viewmodel.DetailEventFragmentViewModel
+import com.example.diploma.data.Favorites
+import com.example.diploma.viewmodel.DetailFavoritesFragmentViewModel
 import com.example.pigolevmyapplication.R
-import com.example.pigolevmyapplication.databinding.FragmentDetailsEventBinding
+import com.example.pigolevmyapplication.databinding.FragmentDetailsScBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.*
 
-class DetailEvents  : Fragment() {
-    private lateinit var binding: FragmentDetailsEventBinding
-    lateinit var event: Events
+class DetailFavorites  : Fragment() {
+    private lateinit var binding: FragmentDetailsScBinding
+    lateinit var spaceCraft: Favorites
     private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(DetailEventFragmentViewModel::class.java)
+        ViewModelProvider.NewInstanceFactory().create(DetailFavoritesFragmentViewModel::class.java)
     }
     private val scope = CoroutineScope(Dispatchers.IO)
 
@@ -37,9 +36,9 @@ class DetailEvents  : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDetailsEventBinding.inflate(inflater, container, false)
+        binding = FragmentDetailsScBinding.inflate(inflater, container, false)
         val view = binding.root
-        event = arguments?.get("event") as Events
+        spaceCraft = arguments?.get("favorites") as Favorites
         return view
 
     }
@@ -47,7 +46,7 @@ class DetailEvents  : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         detailsInit()
-
+        favoritesInit()
         binding.detailsFabDownloadWp.setOnClickListener {
             performAsyncLoadOfPoster()
         }
@@ -57,30 +56,44 @@ class DetailEvents  : Fragment() {
             intent.action = Intent.ACTION_SEND
             intent.putExtra(
                 Intent.EXTRA_TEXT,
-                "Check out this Event: ${event.name} \n\n ${event.description}"
+                "Check out this favorite SpaceCraft: ${spaceCraft.name} \n\n ${spaceCraft.capability}"
             )
             intent.type = "text/plain"
             startActivity(Intent.createChooser(intent, "Share To:"))
         }
-        binding.detailsFabWatchLater.setOnClickListener {
-            NotificationHelper.notificationSet(requireContext(), event)
-        }
     }
 
     private fun detailsInit() {
-        binding.detailsToolbar.title = event.name
+        binding.detailsToolbar.title = spaceCraft.name
         Glide.with(this)
-            .load( event.image)
+            .load( spaceCraft.imageUrl)
+            .placeholder(R.drawable.launch_placeholder)
+            .error(R.drawable.launch_placeholder)
             .centerCrop()
             .into(binding.detailsPoster)
-        binding.annotation = event.name
-        binding.dateText.text = event.date
-        binding.countryText.text = event.location
-        binding.description.text = event.description
+        binding.annotation = spaceCraft.capability
+        if (spaceCraft.crewCapacity > 0) {
+            binding.crewText.text = spaceCraft.crewCapacity.toString()
+        } else  binding.crewText.text = "unmanned"
+        binding.countryText.text = spaceCraft.countryCode
+        binding.maidenFlightText.text = spaceCraft.maidenFlight
+        binding.capability.text = spaceCraft.capability
+        if (spaceCraft.inUse) binding.inUseText.text = "Yes"
+        else binding.inUseText.text = "No"
     }
 
 
+    private fun favoritesInit() {
+        binding.detailsFabFavorites.setImageResource(
+             R.drawable.baseline_favorite_24
+        )
+        binding.detailsFabFavorites.setOnClickListener {
+                binding.detailsFabFavorites.setImageResource(R.drawable.baseline_favorite_border_24)
+                viewModel.interactor.deleteFavoriteItem(spaceCraft.name)
+                binding.detailsFabFavorites.isVisible = false
+        }
 
+    }
 
     //Узнаем, было ли получено разрешение ранее
     private fun checkPermission(): Boolean {
@@ -107,10 +120,10 @@ class DetailEvents  : Fragment() {
             //Создаем объект для передачи данных
             val contentValues = ContentValues().apply {
                 //Составляем информацию для файла (имя, тип, дата создания, куда сохранять и т.д.)
-                put(MediaStore.Images.Media.TITLE, event.name)
+                put(MediaStore.Images.Media.TITLE, spaceCraft.name)
                 put(
                     MediaStore.Images.Media.DISPLAY_NAME,
-                    event.name
+                    spaceCraft.name
                 )
                 put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
                 put(
@@ -140,8 +153,8 @@ class DetailEvents  : Fragment() {
             MediaStore.Images.Media.insertImage(
                 requireActivity().contentResolver,
                 bitmap,
-                event.name,
-                event.description
+                spaceCraft.name,
+                spaceCraft.capability
             )
         }
     }
@@ -153,7 +166,6 @@ class DetailEvents  : Fragment() {
 
 
     private fun performAsyncLoadOfPoster() {
-
         println("Load")
         //Проверяем есть ли разрешение
 //            if (!checkPermission()) {
@@ -168,8 +180,8 @@ class DetailEvents  : Fragment() {
             binding.progressBar.isVisible = true
             //Создаем через async, так как нам нужен результат от работы, то есть Bitmap
             val job = scope.async {
-                println(event.image!!)
-                viewModel.loadWallpaper( event.image!!)
+                println(spaceCraft.imageUrl!!)
+                viewModel.loadWallpaper( spaceCraft.imageUrl!!)
 
             }
             //Сохраняем в галерею, как только файл загрузится
@@ -188,7 +200,6 @@ class DetailEvents  : Fragment() {
                     startActivity(intent)
                 }
                 .show()
-
             //Отключаем Прогресс-бар
             binding.progressBar.isVisible = false
         }

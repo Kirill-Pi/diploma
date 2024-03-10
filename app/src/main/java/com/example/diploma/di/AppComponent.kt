@@ -19,22 +19,13 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(eventsViewModel: EventsViewModel)
-
     fun inject(launchesViewModel: LaunchesViewModel)
-
     fun inject(spaceShipsViewModel: SpaceShipsViewModel)
-
     fun inject(settingsViewModel: SettingsViewModel)
-
     fun inject(favoritesViewModel: FavoritesViewModel)
-
     fun inject(detailsSCFragmentViewModel: DetailsSCFragmentViewModel)
-
     fun inject(lastSeenViewModel: LastSeenViewModel)
-
     fun inject(detailLaunchFragmentViewModel: DetailLaunchFragmentViewModel)
-
     fun inject(detailEventFragmentViewModel: DetailEventFragmentViewModel)
-
-
+    fun inject(detailFavoritesFragmentViewModel: DetailFavoritesFragmentViewModel)
 }

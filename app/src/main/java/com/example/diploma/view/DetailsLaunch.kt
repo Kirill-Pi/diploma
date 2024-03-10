@@ -46,10 +46,6 @@ class DetailsLaunch  : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         detailsInit()
-
-
-
-
         binding.detailsFabDownloadWp.setOnClickListener {
             performAsyncLoadOfPoster()
         }
@@ -64,7 +60,6 @@ class DetailsLaunch  : Fragment() {
             intent.type = "text/plain"
             startActivity(Intent.createChooser(intent, "Share To:"))
         }
-
     }
 
     private fun detailsInit() {
@@ -80,13 +75,9 @@ class DetailsLaunch  : Fragment() {
         binding.padText.text = launch.padName
         if (launch.status) binding.statusText.text = "Success"
         else binding.statusText.text = "Failure"
-
         binding.missionText.text = launch.missionName
         binding.description.text = launch.missionDescription
     }
-
-
-
 
     //Узнаем, было ли получено разрешение ранее
     private fun checkPermission(): Boolean {
@@ -159,7 +150,6 @@ class DetailsLaunch  : Fragment() {
 
 
     private fun performAsyncLoadOfPoster() {
-
         println("Load")
         //Проверяем есть ли разрешение
 //            if (!checkPermission()) {
@@ -192,8 +182,7 @@ class DetailsLaunch  : Fragment() {
                     intent.type = "image/*"
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
-                }
-                .show()
+                }                .show()
 
             //Отключаем Прогресс-бар
             binding.progressBar.isVisible = false

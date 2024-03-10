@@ -29,14 +29,10 @@ class LaunchListRecyclerAdapter(private val clickListener: OnItemClickListener) 
         }
     }
 
-
-
     //Метод для добавления объектов в наш список
     fun addItems(list: MutableList<Launch>) {
         //Сначала очишаем(если не реализовать DiffUtils)
-
             items.clear()
-
         //Добавляем
         items.addAll(list)
         //Уведомляем RV, что пришел новый список и ему нужно заново все "привязывать"
@@ -44,14 +40,11 @@ class LaunchListRecyclerAdapter(private val clickListener: OnItemClickListener) 
     }
 
     fun addPage(list: MutableList<Launch>) {
-
         //Добавляем
         items.addAll(list)
         //Уведомляем RV, что пришел новый список и ему нужно заново все "привязывать"
         notifyDataSetChanged()
     }
-
-
 
     interface OnItemClickListener {
         fun click(news: Launch)

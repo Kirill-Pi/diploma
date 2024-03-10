@@ -14,15 +14,14 @@ interface TmdbApi {
         //@Query("day") day: Int,
         //@Query("month") month: Int,
        // @Query("year") year: Int
+        @Query("search") search: String,
         @Query("offset") offset: Int
     ): Call<TmdbEvents>
 
     @GET("/2.2.0/launch/")
     fun getLaunches(
-       /* @Query("day") day: Int,
-        @Query("month") month: Int,
-        @Query("year") year: Int*/
         @Query("net__gte") query: String,
+        @Query("search") search: String,
         @Query("offset") offset: Int,
     ): Call<TmdbLaunch>
 
@@ -30,10 +29,8 @@ interface TmdbApi {
     fun getSpacecrafts(
         @Query("in_use") isInUse: MutableList<Boolean>,
         @Query("human_rated") isRated: MutableList<Boolean>,
-        //@Query("agency/country_code") country: String,
-        //@Query("net__gte") query: String,
+        @Query("search") search: String,
         @Query("offset") offset: Int,
-
         ): Call<TmdbSpacecraftConfig>
 
 

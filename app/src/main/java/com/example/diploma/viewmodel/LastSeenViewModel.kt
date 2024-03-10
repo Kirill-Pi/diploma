@@ -10,8 +10,7 @@ import javax.inject.Inject
 class LastSeenViewModel : ViewModel() {
 
     val lastSeenListLiveData: Flow<MutableList<SpacecraftConfig>>
-    private var offset = 0
-    private var offsetValue = 10
+
 
     @Inject
     lateinit var interactor: Interactor
@@ -19,8 +18,5 @@ class LastSeenViewModel : ViewModel() {
     init {
         App.instance.dagger.inject(this)
         lastSeenListLiveData = interactor.getLastSeenFromDB()
-        //interactorStart()
     }
-
-
 }

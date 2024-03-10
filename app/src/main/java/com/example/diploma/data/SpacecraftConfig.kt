@@ -10,7 +10,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity(tableName = "cached_spacecrafts", indices = [Index(value = ["name"], unique = true)])
 data class SpacecraftConfig(
-
     @ColumnInfo val agency: String = "",
     @ColumnInfo val capability: String = "",
     @ColumnInfo val crewCapacity: Int = 0,

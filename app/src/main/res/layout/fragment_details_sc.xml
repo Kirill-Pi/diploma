@@ -80,7 +80,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:backgroundTint="?attr/colorButtonNormal"
+            android:backgroundTint="?attr/colorPrimaryVariant"
+            app:tint="@android:color/white"
             app:layout_anchor="@id/app_bar"
             app:layout_anchorGravity="bottom|right"
             app:srcCompat="@drawable/baseline_share_24" />
@@ -102,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="40dp"
-                    android:text="Country"
+                    android:text="@string/Detail_sc_country"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +127,7 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Crew"
+                    android:text="@string/Detail_sc_crew"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/country"
@@ -151,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:text="Maiden flight"
+                    android:text="@string/Detail_sc_mf"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -175,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:text="In use"
+                    android:text="@string/Detail_sc_in_use"
                     android:textColor="@color/light_white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -223,10 +224,6 @@
             app:layout_anchorGravity="left|bottom"
             app:srcCompat="@drawable/baseline_favorite_border_24"
             app:tint="@android:color/white" />
-
-
-
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

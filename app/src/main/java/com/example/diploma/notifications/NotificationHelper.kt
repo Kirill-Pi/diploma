@@ -27,10 +27,8 @@ import com.example.pigolevmyapplication.R
 object NotificationHelper {
     fun createNotification(context: Context, event: Events) {
         val mIntent = Intent(context, MainActivity::class.java)
-
         val pendingIntent =
             PendingIntent.getActivity(context, 0, mIntent, PendingIntent.FLAG_MUTABLE)
-
         val builder = NotificationCompat.Builder(context, NotificationConstants.CHANNEL_ID).apply {
             setSmallIcon(R.drawable.baseline_watch_later_24)
             setContentTitle("Do not forget to see Event!")
@@ -41,7 +39,6 @@ object NotificationHelper {
         }
 
         val notificationManager = NotificationManagerCompat.from(context)
-
         Glide.with(context)
             //говорим что нужен битмап
             .asBitmap()
@@ -79,7 +76,6 @@ object NotificationHelper {
         val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
         val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
         val currentMinute = calendar.get(Calendar.MINUTE)
-
         DatePickerDialog(
             context,
             { _, dpdYear, dpdMonth, dayOfMonth ->
@@ -120,7 +116,6 @@ object NotificationHelper {
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         //Создаем интент для запуска ресивера
         val intent = Intent(event.name, null, context, ReminderBroadcast()::class.java)
-
         val bundle = Bundle()
         bundle.putParcelable(NotificationConstants.EVENT_KEY, event)
         intent.putExtra(NotificationConstants.EVENT_BUNDLE_KEY, bundle)

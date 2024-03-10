@@ -45,9 +45,6 @@ class PreferenceProvider(context: Context) {
         return preference.getInt(KEY_IS_IN_USE_2, IS_IN_USE)
     }
 
-
-
-
     //Ключи для наших настроек, по ним мы их будем получать
     companion object {
         private const val KEY_FIRST_LAUNCH = "first_launch"
@@ -57,8 +54,5 @@ class PreferenceProvider(context: Context) {
         private const val IS_IN_USE = 2
         private const val KEY_COUNTRY = "country"
         private const val COUNTRY = "USA"
-
-
-
     }
 }

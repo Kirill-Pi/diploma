@@ -58,12 +58,4 @@ class SettingsViewModel : ViewModel() {
         //И сразу забираем, чтобы сохранить состояние в модели
         getCountryProperty()
     }
-
-
-
-
-
-
-
-
 }

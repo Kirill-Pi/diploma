@@ -62,10 +62,12 @@
             android:layout_margin="16dp"
             android:background="@drawable/background_search_view"
             android:textAlignment="center"
+            app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerView" />
+            app:layout_constraintTop_toBottomOf="@id/recyclerView"
+            app:queryHint="@string/launches_hint" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_recycler"

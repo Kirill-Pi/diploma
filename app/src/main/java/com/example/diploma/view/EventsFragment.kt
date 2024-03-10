@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +14,8 @@ import com.example.diploma.view.rv_adapters.EventsListRecyclerAdapter
 import com.example.diploma.view.rv_adapters.TopSpacingItemDecoration
 import com.example.diploma.viewmodel.EventsViewModel
 import com.example.pigolevmyapplication.databinding.FragmentEventsBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import java.util.*
 
 class EventsFragment : Fragment() {
 
@@ -32,8 +30,6 @@ class EventsFragment : Fragment() {
     private lateinit var binding: FragmentEventsBinding
     private lateinit var scope: CoroutineScope
     private lateinit var eventsAdapter: EventsListRecyclerAdapter
-
-
     private var eventsDataBase: MutableList<Events> = mutableListOf()
 
     override fun onCreateView(
@@ -46,15 +42,15 @@ class EventsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.getEvents()
         println ("events $eventsDataBase")
         recyclerViewSetup()
+        searchViewInit(binding)
+        recyclerScrollListenerSetup()
+    }
 
-
-
+    private fun recyclerScrollListenerSetup() {
         binding.homeRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val tempLayoutManager = binding.homeRecycler.layoutManager as LinearLayoutManager
@@ -80,7 +76,6 @@ class EventsFragment : Fragment() {
                 }
             }
         })
-
     }
 
     private fun recyclerViewSetup() {
@@ -94,7 +89,6 @@ class EventsFragment : Fragment() {
                         }
                     })
                 eventsAdapter.addItems(eventsDataBase)
-
             adapter = eventsAdapter
             layoutManager = LinearLayoutManager(requireContext())
             val decorator = TopSpacingItemDecoration(8)
@@ -112,6 +106,36 @@ class EventsFragment : Fragment() {
                 }
         }
     }
+
+
+    private fun searchViewInit(binding: FragmentEventsBinding) {
+        binding.searchView.setOnClickListener {
+            binding.searchView.isIconified = false
+        }
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText?.isEmpty() == true) {
+                    viewModel.searchQuerySetUp("")
+                    viewModel.getEvents()
+                    return true
+                }
+                val query = newText?.lowercase(Locale.getDefault())!!
+                viewModel.searchQuerySetUp(query)
+                viewModel.offsetSetup()
+                viewModel.getEvents()
+                return true
+            }
+        })
+    }
+    override fun onStop() {
+        viewModel.searchQuerySetUp("")
+        super.onStop()
+        scope.cancel()
+    }
+
 }
 
 

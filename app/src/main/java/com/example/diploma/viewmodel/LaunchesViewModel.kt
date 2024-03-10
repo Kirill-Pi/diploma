@@ -11,15 +11,13 @@ class LaunchesViewModel : ViewModel() {
     val launchListLiveData: Flow<MutableList<Launch>>
     private var offset = 0
     private var offsetValue = 10
+    private var searchQuery = ""
 
     @Inject
     lateinit var interactor: Interactor
 
-
-
     init {
         App.instance.dagger.inject(this)
-
         launchListLiveData = interactor.getLaunchesFromDB()
     }
 
@@ -27,20 +25,20 @@ class LaunchesViewModel : ViewModel() {
         offset = 0
     }
 
+    fun searchQuerySetUp(query:String){
+        searchQuery = query
+    }
+
     fun getLaunches (date: String ) = interactor.getLaunchesFromApi(object : ApiCallback {
         override fun onSuccess(events: MutableList<Launch>) {
-
         }
-
         override fun onFailure() {
         }
-    }, date, offset)
+    }, date, searchQuery, offset)
 
     fun nextPage (date: String) {
-
         offset += offsetValue
         getLaunches(date)
-
     }
 
     fun cleanDb(){

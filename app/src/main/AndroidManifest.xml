@@ -19,6 +19,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Diploma"
+        android:windowSoftInputMode="adjustPan"
         tools:targetApi="31">
         <activity
             android:name="com.example.diploma.view.MainActivity"
