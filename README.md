@@ -1,7 +1,7 @@
 This application was created as a diploma for Skillfactory IT courses.
 The application provides a possibility of receiving various data from API https://lldev.thespacedevs.com/2.2.0/ .  Application contains following screens:
 1.  Events. 
-This screen provides information about recently events in Space area. It also gives a possibility of performing search and receive detail information about each event on additional screen. Detail screen contains buttons, which can be used for saving Picture to the device gallery and share detailed info.
+This screen provides information about recently events in Space area. It also gives a possibility of performing search and receive detail information about each event on additional screen. Detail screen contains buttons, which can be used for saving Picture to the device gallery and share detailed info. This screen also allows to create notifications for given event.
 
 ![image](https://github.com/Kirill-Pi/diploma/assets/120498185/11c32714-86c5-4893-89d6-3f322243fa26)
 ![image](https://github.com/Kirill-Pi/diploma/assets/120498185/5deaa621-739e-4262-b8a3-80aa6c6f5b80)
