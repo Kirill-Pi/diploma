@@ -1,5 +1,6 @@
 This application was created as a diploma for Skillfactory IT courses.
 The application provides a possibility of receiving various data from API https://lldev.thespacedevs.com/2.2.0/ .  Application contains following screens:
+
 1.  Events.
    
 This screen provides information about recently events in Space area. It also gives a possibility of performing search and receive detail information about each event on additional screen. Detail screen contains buttons, which can be used for saving Picture to the device gallery and share detailed info. 
@@ -18,7 +19,7 @@ This screen provides information about rocket launches after given date. Date ca
 ![image](https://github.com/Kirill-Pi/diploma/assets/120498185/9875cab9-a496-4e83-ae1c-be6df924a389)
    
 
-3.Spacecrafts.
+3. Spacecrafts.
 
 This screen provides information about manned and unmanned Spacecrafts.  They can be filtered by parameters "In use/Not in use/All" and "Human rated/Not human rated/All". Search parameters can be determined on Settings screen. Detailed view also allows user to add item to or remove it from Favorites. The bottom screen allows to review list of Recently seen items and clean viewing history.
 
